@@ -4,42 +4,53 @@
 %  Course: CPSC 312
 %  Project #1
 % Element wise product of two lists.
+% list_product(A,B,C) is true if each element in C is the product of corresponding elements in A and B.
 list_product([],[],[]).
 list_product([H1|T1],[H2|T2],[X|L3]):-list_product(T1,T2,L3), X is H1*H2.
 
 % Sums all the elements.
+% list_sum(A,B) is true if B is the sum of all elements in A.
 list_sum([H|T],R):-list_sum_helper(T,H,R).
 list_sum_helper([],Acc,Acc).
 list_sum_helper([H|T],Acc,R):-NewAcc is H+Acc,list_sum_helper(T,NewAcc,R).
 
 % Counts the number of elements in a list
+% list_count(A,R) is true if R is the number of elements in A
 list_count([_|T],R):-list_count_helper(T,1,R).
 list_count_helper([],Acc,Acc).
 list_count_helper([_|T],Acc,R):-NewAcc is 1+Acc,list_count_helper(T,NewAcc,R).
 
 % Computes the average of a list.
+% list_average(L,R) is true if R is the average of all elements in L
 list_average(L,R):-list_sum(L,S),list_count(L,N),R is S/N.
 
 % Subtract all list items by one number
+% list_subtract(A,B,C) is true if list C is every elements in list A subtracted by a single number B
 list_subtract([],_,[]).
 list_subtract([H|T],E,[H1|R1]):-H1 is H-E,list_subtract(T,E,R1).
 
 % Subtracts all the elements.
+% list_diff(A,B,C) is true if list C is the element wise difference of list A and list B
 list_diff([],[],[]).
 list_diff([H1|T1],[H2|T2],[X|L3]):-list_diff(T1,T2,L3), X is H1-H2.
 
 % Square all elements in the list.
+% list_square(A,B) is true if all elements in B are the squared of elements in A
 list_square([],[]).
 list_square([H|T],[H1|R1]):-H1 is H*H,list_square(T,R1).
 
 % Sum product of two lists.
+% list_sum_product(A,B,C) is true if list C is the sum product of list A and list B
 list_sum_product(L1,L2,R):-list_product(L1,L2,R1),list_sum(R1,R).
 
 % Create a list of ones that match the size of the input list
+% list_create_ones(A,B) is true if list B has the same number of ones in it as in the number of elements in A
 list_create_ones([],[]).
 list_create_ones([_|T],[1|R]):-list_create_ones(T,R).
 
 % Create pairs of x values and ones
+% list_create_pairs(A,B) is true if list B is a list of pairs with each pair being one element
+% from list A and a one.
 list_create_pairs([],[]).
 list_create_pairs([H|T],[[H,1]|R]):-list_create_pairs(T,R).
 
