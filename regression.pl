@@ -55,15 +55,24 @@ list_create_pairs([],[]).
 list_create_pairs([H|T],[[H,1]|R]):-list_create_pairs(T,R).
 
 % Compute X transpose times X
+% compute_two_by_two(L,L1,[A,B,C,D]) is true if matrix A is [L,L1] A, B, C, D are the elements in A_Transpose * A
+% A being the top left element, B being the top right element, C being the bottom left element, and D being the bettom
+% right eleemnt
 compute_two_by_two(L1,LOnes,[A,B,C,D]):-list_sum_product(L1,L1,A),
     list_sum_product(L1,LOnes,B),
     list_sum_product(LOnes,L1,C),
     list_sum_product(LOnes,LOnes,D).
 
 % compute the determinant of a two by two matrix
+% compute_det([A, B, C, D], Det) is true if Det is the determinant of a 2 by 2 matrix formed by [A, B, C, D] where
+% A being the top left element, B being the top right element, C being the bottom left element, and D being the bettom
+% right eleemnt
 compute_det([A,B,C,D],Det):-Det is 1/(A*D-B*C).
 
 % Invert the two by two matrix
+% invert_two_by_two([A, B, C, D],[NA,NB],[NC,ND]) is true if [NA, NB] and [NC, ND] represent the elements in the inverted matrix of [A, B, C, D]
+% where NA being the top left element, NB being the top right element, NC being the bottom left element, and ND being the bettom
+% right eleemnt
 invert_two_by_two([A, B, C, D],[NA,NB],[NC,ND]):-
     compute_det([A,B,C,D],Det),NA is D*Det,
     NB is -B*Det,
